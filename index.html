@@ -1,10 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClipLock</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-$END$
+
+<div class="container" id="main-container">
+  <h1>ClipLock</h1>
+
+  <!-- Eingabe -->
+  <div id="setup-container">
+    <h2>Gib hier eine YouTube-Video-URL ein</h2>
+    <label for="video-url"></label>
+    <input type="text" id="video-url" class="form-control my-3" placeholder="Füge eine YouTube-URL ein und drücke Enter">
+    <button class="btn mt-3" onclick="startRanking()">Turnier starten</button>
+  </div>
+
+  <!-- Templates -->
+  <h3 class="my-4" id="template-headline">Templates</h3>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-3 g-4" id="template-container">
+    <!-- Template 1 -->
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Anime Openings</h5>
+          <p class="card-text">Eine Sammlung der bekanntesten Anime Opening und Ending Songs</p>
+          <button class="btn" onclick="addTemplateVideos([
+          '7aMOurgDB-o', 'faqmNf_fZlE', 'CID-sYQNCew', 'YkJvHe3KK2c', 'GwaRztMaoY0',
+          'ZYlaUrj2Zkk', 'C0zMWogztQs', '210R0ozmLwg', '-pHfPJGatgE', '1oOBjyOKu2o',
+          'a4na2opArGY', 'rwCJvSKzQkc', 'dFlDRhvM4L0', 'MM8RufZr5lw', 'qMHVyjuza44',
+          'aso1mQLUAbc', 'kNyR46eHDxE', '9deedzO71hk', 'hsfBOwAIhOw', 'wzoIZO8WbI8',
+          'HndMAbZoz2A', 'A4kLcDWBYcQ', 'JBqxVX_LXvk', '60A31DKGzAM', 'FKIT6G_lw7c',
+          '2oQSUoGhEBg', 'hkcdLR_tdtA', 'Rrni7T7sGZk', 'jf1jnJGNYfs', '04WuoQMhhxw'
+        ])">Anwenden</button>
+        </div>
+      </div>
+    </div>
+    <!-- Template 2 -->
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Beste Songs</h5>
+          <p class="card-text">Eine Sammlung der besten Songs aus verschiedenen Genres.</p>
+          <button class="btn" onclick="addTemplateVideos([
+        'RgKAFK5djSk', 'JGwWNGJdvx8', 'OPf0YbXqDm0', '9bZkp7q19f0', '09R8_2nJtjg',
+        'hT_nvWreIhg', 'CevxZvSJLk8', 'fRh_vgS2dFE', 'Ojz22PGB6p8', '0KSOMA3QBU0',
+        '2Vv-BfVoq4g', 'RBumgq5yVrA', 'lp-EO5I60KA', 'Q29sFZ9lShc', 'aJOTlE1K90k',
+        '60ItHLz5WEA', 'YqeW9_5kURI', 'kJQP7kiw5Fk', 'zZgMWQt79Qc', 'NUsoVlDFqZg',
+        'e-ORhEE9VVg', '3AtDnEC4zak', 'nfWlot6h_JM', 'PT2_F-1esPk', 'SKNYMG3fS9M',
+        'YQHsXMglC9A', 'k2qgadSvNyU', 'papuvlVeZg8', '6Mgqbai3fKo', 'eXbF2k9uLu0'
+      ])">Anwenden</button>
+        </div>
+      </div>
+    </div>
+    <!-- Template 3 -->
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Beste Filmmusik</h5>
+          <p class="card-text">Eine Sammlung von epischen und legendären Filmmusiken aus verschiedenen Kinofilmen.</p>
+          <button class="btn" onclick="addTemplateVideos([
+        'UDVtMYqUAyw', 'c56t7upa8Bk', '94TAFSMdkvk', 'Iy4iQvJo24U', 'BWAhVbayGv4',
+        'ASj81daun5Q', 'vzvVsNIWRhM', 'al21Vtlsg4A', 'btinTfdeFEA', '-yOZEiHLuVU',
+        'S0wk88rjYS8', '0AC4ovCUs4Y', 'A2LaVBdi6Ic', 'u5FyRZbqfeM', '76iayUZg73w',
+        'j3iAzdbg3mo', '1KtuChfoH88', 'LRLdhFVzqt4', 'GWm8-jlddaw', 'imamcajBEJs',
+        'ygNuRpwZqRU', 'mm-sbOH-nEc', 'MqoANESQ4cQ', 'RPH7LXPZFBo', '2UeA9Nus9Eg',
+        'YyAIrRjkcc4', 'ZuGiwDQEvDc', 'Fw15Vp5zeDc', 'jY9dQ8hUi7U', 'TG9-j3eevL4'
+      ])">Anwenden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste -->
+  <div class="container-list">
+    <ul id="video-list" class="list-group my-3"></ul>
+  </div>
+
+  <!-- Turnier -->
+  <div id="video-container" style="display: none;"></div>
+</div>
+
+<!-- Hintergrund -->
+<div class="grid-background"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
