@@ -11,12 +11,16 @@
 
 <div class="container" id="main-container">
   <h1>ClipLock</h1>
+  <div id="seed-display" class="seed-display-dark mt-3 d-none"></div>
 
   <!-- Eingabe -->
   <div id="setup-container">
     <h2>Gib hier eine YouTube-Video-URL ein</h2>
     <label for="video-url"></label>
-    <input type="text" id="video-url" class="form-control my-3" placeholder="Füge eine YouTube-URL ein und drücke Enter">
+    <input type="text" id="video-url" class="form-control my-1" placeholder="Füge eine YouTube-URL ein und drücke Enter">
+    <label for="seed-input"></label>
+    <input type="text" id="seed-input" class="form-control my-2" placeholder="Optional: Seed für Zufallsreihenfolge">
+
     <button class="btn mt-3" onclick="startRanking()">Turnier starten</button>
   </div>
 

@@ -29,7 +29,7 @@ h2 {
     color: #e0e0e0;
     font-weight: 600;
     font-size: 1.5rem;
-    margin-bottom: -1rem;
+    margin-bottom: -0.5rem;
 }
 
 h5 {
@@ -85,6 +85,15 @@ input[type="text"]:focus {
     color: #bbbbbb;
     border-color: #5200ea;
     box-shadow: 0 0 5px #5200ea;
+}
+
+.seed-display-dark {
+    background-color: #292929;
+    color: #e0e0e0;
+    border-color: #444;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 5px;
 }
 
 .card {

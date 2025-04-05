@@ -1,3 +1,24 @@
+let seed = null;
+let seededRandom = Math.random;
+
+function mulberry32(seed) {
+    return function () {
+        let t = seed += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+}
+
+function hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        hash = hash & hash;
+    }
+    return Math.abs(hash);
+}
+
 function addTemplateVideos(videoIds) {
     videoIds.forEach(videoId => {
         if (!videos.includes(videoId)) {
@@ -41,22 +62,49 @@ function updateVideoList() {
     }).join("\n");
 }
 
-
 function startRanking() {
     if (videos.length < 2) {
         alert("Bitte geben Sie mindestens zwei Videos ein.");
         return;
     }
 
+    const seedInput = document.getElementById("seed-input").value.trim();
+
+    if (seedInput !== "") {
+        seed = hashString(seedInput);
+        seededRandom = mulberry32(seed);
+        showSeed(seedInput);
+    } else {
+        const randomSeed = Math.random().toString(36).substring(2, 15);
+        seed = hashString(randomSeed);
+        seededRandom = mulberry32(seed);
+        showSeed(randomSeed);
+    }
+
     document.getElementById("template-container").style.display = "none";
     document.getElementById("template-headline").style.display = "none";
     document.getElementById("setup-container").style.display = "none";
     document.getElementById("video-container").style.display = "block";
-
-    // Verstecke die Liste
     document.querySelector('.container-list').style.display = 'none';
 
     getRandomPair();
+}
+
+
+function showSeed(value) {
+    let seedDisplay = document.getElementById("seed-display");
+
+    if (!seedDisplay) {
+        seedDisplay = document.createElement("div");
+        seedDisplay.id = "seed-display";
+        seedDisplay.className = "alert alert-secondary mt-3";
+        const mainContainer = document.getElementById("main-container");
+        mainContainer.insertBefore(seedDisplay, mainContainer.firstChild);
+    }
+
+    seedDisplay.textContent = `Aktueller Seed: ${value}`;
+
+    seedDisplay.classList.remove("d-none");
 }
 
 function getRandomPair() {
@@ -64,12 +112,17 @@ function getRandomPair() {
         document.getElementById("video-container").innerHTML = `
         <div class="iframe-container">
             <iframe width='560' height='315' src='https://www.youtube.com/embed/${videos[0]}' allowfullscreen></iframe>
-        </div>
-      `;
+        </div>`;
         return;
     }
-    let shuffled = videos.sort(() => 0.5 - Math.random());
-    let [video1, video2] = shuffled.slice(0, 2);
+
+    let shuffled = [...videos];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const [video1, video2] = shuffled.slice(0, 2);
     displayVideos(video1, video2);
 }
 
