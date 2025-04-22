@@ -12,7 +12,7 @@
 
 ## Preview
 
-
+<img width="2279" alt="grafik" src="https://github.com/user-attachments/assets/af196058-99c8-4fef-88de-61e8e1d5e304" />
 
 ---
 
