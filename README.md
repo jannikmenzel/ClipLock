@@ -27,7 +27,7 @@
 
 ## Licence
 
-This project is licensed under the GNU General Public License v3.0 (GPLv3) – for more details, see the `LICENSE.md` file.
+This project is licensed under the GNU General Public License v3.0 (GPLv3) – for more details, see the `LICENSE` file.
 
 ---
 
